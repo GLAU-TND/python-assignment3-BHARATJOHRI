@@ -1,7 +1,16 @@
-import random
-import secrets
+def rounds(coins):
+    if (coins < 1):
+        return None
 
-number = random.SystemRandom().random()
-print("secure number is ", number)
+    if coins == 1:
+        return 1
 
-print("Secure byte token", secrets.token_bytes(16))
+    round_number = rounds(coins // 2) + 1
+
+    return round_number
+
+
+t =int(input())
+
+
+print("It took {0} rounds to change {1} coins into 1".format(rounds(t), t))
