@@ -1,28 +1,21 @@
-
-def isKPalRec(str1, str2, m, n):
-
-    if not m: return n
-
-    if not n: return m
-
-    if str1[m - 1] == str2[n - 1]:
-        return isKPalRec(str1, str2, m - 1, n - 1)
+def is_palindrome(s):
+    return bool(s) and s == s[::-1]
 
 
-    res = 1 + min(isKPalRec(str1, str2, m - 1, n),  # Remove from str1
-                  (isKPalRec(str1, str2, m, n - 1)))  # Remove from str2
+def make_palindrome(s, num_delete):
+    if is_palindrome(s):
+        return True
+    if not num_delete:
+        return False
 
-    return res
+    for i, _ in enumerate(s):
+        s1 = s[:i] + s[i+1:]
+        if make_palindrome(s1, num_delete - 1):
+            return True
 
+    return False
 
-def isKPal(string, k):
-    revStr = string[::-1]
-    l = len(string)
-
-    return (isKPalRec(string, revStr, l, l) <= k * 2)
-
-
-string = "acdcb"
-k = 2
-
-print("Yes" if isKPal(string, k) else "No")
+s=input()
+num_delete=int(input())
+print(is_palindrome(s))
+print(make_palindrome(s,num_delete))
